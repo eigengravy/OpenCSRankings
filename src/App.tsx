@@ -11,11 +11,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card";
+
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { NAMES, CONFS } from "./constants";
+import { NAMES, CONFS, CONF_NAMES } from "./constants";
 import { cn } from "./lib/utils";
 import { ModeToggle } from "./components/ui/mode-toggle";
 
@@ -153,7 +159,7 @@ function App() {
           })
       );
 
-      setLoadingProgress(50);
+      setLoadingProgress(67);
     })();
   }, []);
 
@@ -165,8 +171,6 @@ function App() {
           entry.year <= endYear &&
           activeConfs.includes(entry.conf)
       );
-
-      setLoadingProgress(67);
 
       const sortedFaculty = Object.values(
         filteredDblp.reduce((acc, entry) => {
@@ -185,8 +189,6 @@ function App() {
           return acc;
         }, {})
       ).sort((a: any, b: any) => b["adj"] - a["adj"]);
-
-      setFaculty(sortedFaculty);
 
       const sortedInstitutes = Object.values(
         sortedFaculty.reduce((acc, entry) => {
@@ -207,16 +209,16 @@ function App() {
         }, {})
       ).sort((a: any, b: any) => b["adj"] - a["adj"]);
 
+      setFaculty(sortedFaculty);
       setInstitutes(sortedInstitutes);
       setLoadingProgress(99);
-
       setLoading(false);
     }
   }, [dblp, startYear, endYear, activeConfs]);
 
   return (
     <>
-      <div className="px-5 md:px-16 pt-5 w-full min-h-[95vh] flex flex-col md:flex-row">
+      <div className="px-5 lg:px-16 pt-5 w-full min-h-[95vh] flex flex-col lg:flex-row">
         {loading && (
           <div className="flex justify-center items-center w-full h-[100vh]">
             <Progress className="w-[60%]" value={loadingProgress}></Progress>
@@ -224,14 +226,14 @@ function App() {
         )}
         {!loading && (
           <>
-            <div className="flex flex-col w-full md:w-4/12 p-2 gap-3">
+            <div className="flex flex-col w-full lg:w-4/12 p-2 gap-3">
               <div className="text-3xl">OpenCSRankings</div>
-              <p>
-                OpenCSRankings is a metrics-based ranking of top CS institutions
-                and faculty in India.
+              <p className="h-19">
+                Metrics-based ranking of top CS institutions and faculty in
+                India.
               </p>
               <div className="mt-3">
-                <Card>
+                <Card className={cn("w-[75vh")}>
                   <CardHeader>
                     <CardTitle
                       className={cn(
@@ -301,7 +303,7 @@ function App() {
                           </Button>
                         </div>
                       </div>
-                      <ScrollArea className="h-[20vh] md:h-[46vh] px-3 mb-1 rounded-md border">
+                      <ScrollArea className="h-[20vh] lg:h-[46vh] px-3 mb-1 rounded-md border">
                         {Object.keys(activeAreas).map((area) => (
                           <div key={area} className="py-1">
                             <div className="flex flex-row items-center gap-2">
@@ -328,39 +330,52 @@ function App() {
                               {Object.keys(activeAreas[area].children).map(
                                 (subArea) => {
                                   return (
-                                    <div
-                                      key={subArea}
-                                      className="flex flex-row items-center gap-2"
-                                    >
-                                      <Checkbox
-                                        checked={
-                                          activeAreas[area].children[subArea]
-                                            .checked
-                                        }
-                                        onCheckedChange={(e) => {
-                                          const currActiveAreas =
-                                            cloneDeep(activeAreas);
-                                          currActiveAreas[area].children[
-                                            subArea
-                                          ].checked = e;
-                                          currActiveAreas[area].checked =
-                                            Object.keys(
-                                              currActiveAreas[area].children
-                                            ).reduce((acc, subArea) => {
-                                              return (
-                                                acc &&
-                                                currActiveAreas[area].children[
-                                                  subArea
-                                                ].checked
-                                              );
-                                            }, true);
-                                          setActiveAreas(currActiveAreas);
-                                        }}
-                                      />
-                                      <p className="text-sm">
-                                        {NAMES[subArea]}
-                                      </p>
-                                    </div>
+                                    <HoverCard openDelay={200} closeDelay={50}>
+                                      <HoverCardTrigger>
+                                        <div
+                                          key={subArea}
+                                          className="flex flex-row items-center gap-2"
+                                        >
+                                          <Checkbox
+                                            checked={
+                                              activeAreas[area].children[
+                                                subArea
+                                              ].checked
+                                            }
+                                            onCheckedChange={(e) => {
+                                              const currActiveAreas =
+                                                cloneDeep(activeAreas);
+                                              currActiveAreas[area].children[
+                                                subArea
+                                              ].checked = e;
+                                              currActiveAreas[area].checked =
+                                                Object.keys(
+                                                  currActiveAreas[area].children
+                                                ).reduce((acc, subArea) => {
+                                                  return (
+                                                    acc &&
+                                                    currActiveAreas[area]
+                                                      .children[subArea].checked
+                                                  );
+                                                }, true);
+                                              setActiveAreas(currActiveAreas);
+                                            }}
+                                          />
+                                          <p className="text-sm">
+                                            {NAMES[subArea]}
+                                          </p>
+                                        </div>
+                                      </HoverCardTrigger>
+                                      <HoverCardContent>
+                                        <p className="text-xs">
+                                          {CONFS[area][subArea]
+                                            .map(
+                                              (conf: string) => CONF_NAMES[conf]
+                                            )
+                                            .join(", ")}
+                                        </p>
+                                      </HoverCardContent>
+                                    </HoverCard>
                                   );
                                 }
                               )}
@@ -373,7 +388,7 @@ function App() {
                 </Card>
               </div>
             </div>
-            <div className="flex flex-col w-full md:w-8/12 p-2">
+            <div className="flex flex-col w-full lg:w-8/12 p-2">
               <Tabs defaultValue="institute" className="w-full">
                 <TabsList className="w-full">
                   <TabsTrigger value="institute" className="w-full">
@@ -400,7 +415,7 @@ function App() {
       {!loading && (
         <footer className="w-full text-sm text-center pb-2 pt-2">
           © {new Date().getFullYear()},{" "}
-          <a className="underline" href="https://github.com/eigengravy/ocsr">
+          <a className="underline" href="https://github.com/eigengravy">
             OpenCSRankings
           </a>
           . Made with ❤️ in 🇮🇳.
