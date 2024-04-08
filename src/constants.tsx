@@ -180,3 +180,62 @@ export const CONFS = {
     logic: ["lics", "cav"],
   },
 };
+
+export const FAQ = [
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+  {
+    q: "How were research areas determined?",
+    a: "Categories are based on research-focused ACM SIGs and other established research areas of computer science.",
+  },
+];

@@ -12,6 +12,17 @@ import {
 } from "@/components/ui/select";
 
 import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+
+import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
@@ -21,7 +32,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { NAMES, CONFS, CONF_NAMES } from "./constants";
+import { NAMES, CONFS, CONF_NAMES, FAQ } from "./constants";
 import { cn } from "./lib/utils";
 import { ModeToggle } from "./components/ui/mode-toggle";
 
@@ -228,6 +239,7 @@ function App() {
           <>
             <div className="flex flex-col w-full lg:w-4/12 p-2 gap-3">
               <div className="text-3xl">OpenCSRankings</div>
+
               <p className="h-19">
                 Metrics-based ranking of top CS institutions and faculty in
                 India.
@@ -240,7 +252,35 @@ function App() {
                         "flex flex-row justify-between items-center"
                       )}
                     >
-                      Settings <ModeToggle />
+                      Settings
+                      <div className="flex flex-row gap-3">
+                        <ModeToggle />
+                        <Drawer>
+                          <DrawerTrigger>
+                            <Button variant="outline">FAQ</Button>
+                          </DrawerTrigger>
+                          <DrawerContent>
+                            <div className="w-full mx-auto max-w-3xl">
+                              <DrawerHeader>
+                                <DrawerTitle>FAQ</DrawerTitle>
+                                <DrawerDescription>
+                                  Frequently Asked Questions for OpenCSRanking
+                                </DrawerDescription>
+                              </DrawerHeader>
+                              <DrawerFooter>
+                                <ScrollArea className="h-[50vh] px-5 py-3 mb-1 rounded-md border">
+                                  {FAQ.map(({ q, a }) => (
+                                    <>
+                                      <p className="font-bold text-lg">{q}</p>
+                                      <p className="text-sm">{a}</p>
+                                    </>
+                                  ))}
+                                </ScrollArea>
+                              </DrawerFooter>
+                            </div>
+                          </DrawerContent>
+                        </Drawer>
+                      </div>
                     </CardTitle>
                   </CardHeader>
                   <CardContent className={cn("flex flex-col gap-5")}>
