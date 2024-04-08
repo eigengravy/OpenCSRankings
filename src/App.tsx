@@ -245,7 +245,7 @@ function App() {
                 India.
               </p>
               <div className="mt-3">
-                <Card className={cn("w-[75vh")}>
+                <Card>
                   <CardHeader>
                     <CardTitle
                       className={cn(
@@ -269,10 +269,13 @@ function App() {
                               </DrawerHeader>
                               <DrawerFooter>
                                 <ScrollArea className="h-[50vh] px-5 py-3 mb-1 rounded-md border">
-                                  {FAQ.map(({ q, a }) => (
+                                  {FAQ.map(({ q, a }, i) => (
                                     <>
                                       <p className="font-bold text-lg">{q}</p>
                                       <p className="text-sm">{a}</p>
+                                      {!(FAQ.length == i + 1) && (
+                                        <Separator className="my-2" />
+                                      )}
                                     </>
                                   ))}
                                 </ScrollArea>
